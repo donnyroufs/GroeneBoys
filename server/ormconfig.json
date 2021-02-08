@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "groeneboys",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/Entities/**/*.ts"],
+  "migrations": ["src/Data/Migrations/**/*.ts"],
+  "subscribers": ["src/Data/Subscribers/**/*.ts"]
+}

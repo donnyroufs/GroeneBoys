@@ -1,3 +1,4 @@
+import { IGetUsersReponseDto } from "./../Dto/User.dto";
 import { types, IUserService } from "../Types";
 import { inject } from "inversify";
 import {
@@ -16,9 +17,10 @@ export class UserController extends BaseHttpController {
 
   @httpGet("/")
   async index() {
-    const users = this.userService.getUsers();
+    const users = await this.userService.getUsers();
 
-    return {
+    return <IGetUsersReponseDto>{
+      statusCode: 200,
       data: users,
     };
   }

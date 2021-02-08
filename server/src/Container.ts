@@ -1,12 +1,12 @@
 import "reflect-metadata";
 
 import { Container } from "inversify";
-import { User } from "./Modules";
+import { User, Order } from "./Modules";
 
 import "./Controllers";
 
 const container = new Container();
 
-container.load(User);
+container.load(User, Order);
 
 export { container };

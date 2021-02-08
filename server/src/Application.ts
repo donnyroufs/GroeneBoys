@@ -3,6 +3,7 @@ import "reflect-metadata";
 import express, { Express } from "express";
 import { InversifyExpressServer } from "inversify-express-utils";
 import { container } from "./Container";
+import { connectDatabase } from "./Data/CreateConnection";
 import morgan from "morgan";
 
 class Application {
@@ -11,15 +12,14 @@ class Application {
   private app!: Express;
 
   constructor() {
-    this.setupInversify();
-    this.run();
+    this.setupInversify(this.run.bind(this));
   }
 
   private run() {
     this.app.listen(Application.PORT, this.onAppListen.bind(this));
   }
 
-  private setupInversify() {
+  private async setupInversify(callback: () => void) {
     const server = new InversifyExpressServer(container);
 
     server.setConfig((application: express.Application) => {
@@ -27,8 +27,12 @@ class Application {
       application.use(morgan("common"));
     });
 
+    await connectDatabase();
+
     // @ts-ignore
     this.app = server.build();
+
+    callback();
   }
 
   private onAppListen() {
