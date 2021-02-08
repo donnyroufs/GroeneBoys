@@ -1,7 +1,7 @@
 import "reflect-metadata";
 
 import { Container } from "inversify";
-import { User } from "./Modules/User.module";
+import { User } from "./Modules";
 
 import "./Controllers";
 
