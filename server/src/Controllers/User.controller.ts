@@ -7,7 +7,7 @@ import {
   httpGet,
 } from "inversify-express-utils";
 
-@controller("/user")
+@controller("/api/user")
 export class UserController extends BaseHttpController {
   constructor(
     @inject(types.IUserService) private readonly userService: IUserService

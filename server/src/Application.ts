@@ -4,6 +4,7 @@ import express, { Express } from "express";
 import { InversifyExpressServer } from "inversify-express-utils";
 import { container } from "./Container";
 import { connectDatabase } from "./Data/CreateConnection";
+import cors from "cors";
 import morgan from "morgan";
 
 class Application {
@@ -25,6 +26,7 @@ class Application {
     server.setConfig((application: express.Application) => {
       application.use(express.json());
       application.use(morgan("common"));
+      application.use(cors());
     });
 
     await connectDatabase();

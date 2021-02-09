@@ -13,7 +13,7 @@ import {
   requestBody,
 } from "inversify-express-utils";
 
-@controller("/order")
+@controller("/api/order")
 export class OrderController extends BaseHttpController {
   constructor(
     @inject(types.IOrderService) private readonly orderService: IOrderService
