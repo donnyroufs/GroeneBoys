@@ -15,6 +15,7 @@ export interface ICartProps {
   addToCart: (product: IProduct) => void;
   removeFromCart: (id: number) => void;
   resetCart: () => void;
+  payOrder: () => void;
 }
 
 // @ts-ignore
@@ -56,6 +57,8 @@ const useCartProvider = () => {
     setCart([]);
   }, []);
 
+  const payOrder = useCallback(() => {}, []);
+
   const cartWithQuantities = Object.entries(
     cart.reduce((acc, curr) => {
       // @ts-ignore
@@ -68,7 +71,7 @@ const useCartProvider = () => {
     return {
       ...product,
       quantity: v,
-    } as IProduct & { quantity: number };
+    } as ProductWithQuantity;
   });
 
   return useMemo(
@@ -78,7 +81,8 @@ const useCartProvider = () => {
       removeFromCart,
       resetCart,
       cartWithQuantities,
+      payOrder,
     }),
-    [cart, addToCart, removeFromCart, resetCart, cartWithQuantities]
+    [cart, addToCart, removeFromCart, resetCart, cartWithQuantities, payOrder]
   );
 };

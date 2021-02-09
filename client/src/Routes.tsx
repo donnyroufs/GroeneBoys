@@ -16,6 +16,12 @@ export const Routes = () => (
       <Route path="/overview">
         <Pages.Overview />
       </Route>
+      <Route path="/order">
+        <Pages.Order />
+      </Route>
+      <Route path="*">
+        <Pages.NotFound />
+      </Route>
     </Switch>
   </Router>
 );

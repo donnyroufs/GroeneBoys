@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { GenericLayout } from "../../Layout/GenericLayout";
 import {
   Table,
@@ -18,7 +19,14 @@ import React from "react";
 import { ProductWithQuantity, useCart } from "../../Context/useCart";
 
 export const Checkout: React.FC = () => {
-  const { cart, cartWithQuantities } = useCart();
+  const { cart, cartWithQuantities, payOrder } = useCart();
+  const history = useHistory();
+
+  function onPay() {
+    // TODO: MAKE WORKING AND ALL
+    payOrder();
+    history.push("/order");
+  }
 
   const productsInCart = cart.length;
   const totalPrice = cartWithQuantities
@@ -79,6 +87,7 @@ export const Checkout: React.FC = () => {
           <StatNumber>€{totalPrice}</StatNumber>
         </Stat>
         <Button
+          disabled={productsInCart <= 0}
           backgroundColor="green.500"
           color="#fff"
           p="2rem 3.5rem"
@@ -86,6 +95,7 @@ export const Checkout: React.FC = () => {
             background: "green.400",
             color: "white",
           }}
+          onClick={onPay}
         >
           Betalen
         </Button>
