@@ -10,8 +10,8 @@ export const Routes = () => (
       <Route path="/products">
         <Pages.Products />
       </Route>
-      <Route path="/order">
-        <Pages.Order />
+      <Route path="/checkout">
+        <Pages.Checkout />
       </Route>
       <Route path="/overview">
         <Pages.Overview />
