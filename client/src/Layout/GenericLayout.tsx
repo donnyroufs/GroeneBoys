@@ -9,7 +9,6 @@ export interface IGenericLayourProps {
 }
 
 export const GenericLayout: React.FC<IGenericLayourProps> = ({ children }) => {
-  // TODO: Move to app
   const history = useHistory();
   const { data } = useQuery<{ data: { firstName: string } }>("verify", {
     enabled: false,
@@ -20,7 +19,7 @@ export const GenericLayout: React.FC<IGenericLayourProps> = ({ children }) => {
   }
 
   return (
-    <Box>
+    <Box paddingBottom="6rem">
       <NavBar />
       {children}
     </Box>
