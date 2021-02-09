@@ -6,6 +6,7 @@ import { container } from "./Container";
 import { connectDatabase } from "./Data/CreateConnection";
 import cors from "cors";
 import morgan from "morgan";
+import path from "path";
 
 class Application {
   static PORT = process.env.PORT || 5000;
@@ -24,6 +25,7 @@ class Application {
     const server = new InversifyExpressServer(container);
 
     server.setConfig((application: express.Application) => {
+      application.use("/static", express.static("public"));
       application.use(express.json());
       application.use(morgan("common"));
       application.use(cors());
