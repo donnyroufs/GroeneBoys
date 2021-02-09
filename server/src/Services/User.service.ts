@@ -11,4 +11,8 @@ export class UserService implements IUserService {
     const users = await this.userRepo.find();
     return users;
   }
+
+  async verify(serialNumber: number) {
+    return this.userRepo.findOne({ serialNumber });
+  }
 }

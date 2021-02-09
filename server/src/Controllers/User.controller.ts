@@ -1,10 +1,16 @@
-import { IGetUsersReponseDto } from "./../Dto/User.dto";
+import {
+  IGetUsersReponseDto,
+  IUserVerifyRequestDto,
+  IUserVerifyResponseDto,
+} from "../Dto/User.dto";
 import { types, IUserService } from "../Types";
 import { inject } from "inversify";
 import {
   BaseHttpController,
   controller,
   httpGet,
+  queryParam,
+  requestBody,
 } from "inversify-express-utils";
 
 @controller("/api/user")
@@ -22,6 +28,24 @@ export class UserController extends BaseHttpController {
     return <IGetUsersReponseDto>{
       statusCode: 200,
       data: users,
+    };
+  }
+
+  @httpGet("/verify")
+  async verify(@queryParam() { serialNumber }: IUserVerifyRequestDto) {
+    const verified = await this.userService.verify(serialNumber);
+
+    if (!verified) {
+      return <IUserVerifyResponseDto>{
+        statusCode: 404,
+        message: "User does not exist",
+        error: true,
+      };
+    }
+
+    return <IUserVerifyResponseDto>{
+      statusCode: 200,
+      data: verified,
     };
   }
 }

@@ -1,6 +1,5 @@
 import { OrderToProduct } from "./Entities/OrderToProduct.entity";
-import { IGetUsersReponseDto } from "./Dto/User.dto";
-import { IGetOrdersResponseDto, ICreateOrderRequestDto } from "./Dto/Order.dto";
+import { ICreateOrderRequestDto } from "./Dto/Order.dto";
 import { Order } from "./Entities/Order.entity";
 import { User } from "./Entities/User.entity";
 import { Repository } from "typeorm";
@@ -19,6 +18,7 @@ export enum OrderStatus {
 
 export interface IUserService {
   getUsers: () => Promise<User[]>;
+  verify: (serialNumber: number) => Promise<User | undefined>;
 }
 
 export interface IOrderService {
