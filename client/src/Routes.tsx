@@ -13,6 +13,9 @@ export const Routes = () => (
       <Route path="/checkout">
         <Pages.Checkout />
       </Route>
+      <Route path="/overview/:id">
+        <Pages.OverviewResource />
+      </Route>
       <Route path="/overview">
         <Pages.Overview />
       </Route>

@@ -1,14 +1,15 @@
+import { injectable } from "inversify";
 import { OrderToProduct } from "./../Entities/OrderToProduct.entity";
 import { ICreateOrderRequestDto } from "./../Dto/Order.dto";
 import { Order } from "./../Entities/Order.entity";
 import { getRepository, getManager } from "typeorm";
+import { mergePendingOrders } from "../Utils/mergePendingOrders";
 import {
   IOrderProductRepository,
   IOrderRepository,
   IOrderService,
   OrderStatus,
 } from "../Types";
-import { injectable } from "inversify";
 
 @injectable()
 export class OrderService implements IOrderService {
@@ -22,14 +23,13 @@ export class OrderService implements IOrderService {
     return orders;
   }
 
-  async createOrder({
-    userId,
-    products,
-    ...orderData
-  }: ICreateOrderRequestDto) {
+  async createOrder({ userId, products }: ICreateOrderRequestDto) {
     return getManager().transaction(async (entityManager) => {
+      const currentReferenceNumber = await entityManager.count(Order);
+      const updatedReferenceNumber = currentReferenceNumber + 1;
+
       const newOrder = this.orderRepo.create({
-        ...orderData,
+        referenceNumber: updatedReferenceNumber,
         user: {
           id: userId,
         },
@@ -46,12 +46,17 @@ export class OrderService implements IOrderService {
         });
       });
 
-      return entityManager.save(orderedProducts);
+      const order = await entityManager.save(orderedProducts);
+
+      return {
+        order,
+        referenceNumber: updatedReferenceNumber,
+      };
     });
   }
 
   async getPendingOrders() {
-    return this.orderToProductRepo
+    const orders = await this.orderToProductRepo
       .createQueryBuilder("o")
       .innerJoinAndSelect("o.order", "order")
       .innerJoinAndSelect("o.product", "product")
@@ -59,6 +64,8 @@ export class OrderService implements IOrderService {
         orderStatus: OrderStatus.paid,
       })
       .getMany();
+
+    return mergePendingOrders(orders);
   }
 
   async updateOrder(id: number, status: OrderStatus = OrderStatus.paid) {

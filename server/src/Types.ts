@@ -25,9 +25,15 @@ export interface IUserService {
   verify: (serialNumber: number) => Promise<User | undefined>;
 }
 
+export interface ICreateOrderServiceDto {
+  order: OrderToProduct[];
+  referenceNumber: number;
+}
 export interface IOrderService {
   getOrders: () => Promise<Order[]>;
-  createOrder: (orderData: ICreateOrderRequestDto) => Promise<OrderToProduct[]>;
+  createOrder: (
+    orderData: ICreateOrderRequestDto
+  ) => Promise<ICreateOrderServiceDto>;
   getPendingOrders: () => Promise<unknown>;
   updateOrder: (id: number, status: OrderStatus) => Promise<unknown>;
 }

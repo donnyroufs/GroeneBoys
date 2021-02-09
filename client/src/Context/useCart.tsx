@@ -12,7 +12,7 @@ export type ProductWithQuantity = IProduct & { quantity: number };
 
 export interface ICartProps {
   cart: IProduct[];
-  orderId: number | null;
+  referenceId: number | null;
   cartWithQuantities: ProductWithQuantity[];
   addToCart: (product: IProduct) => void;
   removeFromCart: (id: number) => void;
@@ -23,7 +23,7 @@ export interface ICartProps {
 // @ts-ignore
 const initialState: ICartProps = {
   cart: [],
-  orderId: null,
+  referenceId: null,
 };
 
 const CartContext = createContext<ICartProps>(initialState);
@@ -40,7 +40,7 @@ export const useCart = () => {
 
 const useCartProvider = () => {
   const [cart, setCart] = useState<IProduct[]>([]);
-  const [orderId, setOrderId] = useState<Number | null>(0);
+  const [referenceId, setReferenceId] = useState<Number | null>(0);
 
   const cartWithQuantities = Object.entries(
     cart.reduce((acc, curr) => {
@@ -74,7 +74,7 @@ const useCartProvider = () => {
 
   const resetCart = useCallback(() => {
     setCart([]);
-    setOrderId(null);
+    setReferenceId(null);
   }, []);
 
   const createAndPayOrder = useCallback(
@@ -87,8 +87,8 @@ const useCartProvider = () => {
         serialNumber: data.serialNumber,
         products: cartWithQuantities,
       });
-      // @TODO: Risky shizzle
-      setOrderId(orderData[0].orderId);
+
+      setReferenceId(orderData.referenceNumber);
     },
     [cartWithQuantities]
   );
@@ -101,7 +101,7 @@ const useCartProvider = () => {
       resetCart,
       cartWithQuantities,
       createAndPayOrder,
-      orderId,
+      referenceId,
     }),
     [
       cart,
@@ -110,7 +110,7 @@ const useCartProvider = () => {
       resetCart,
       cartWithQuantities,
       createAndPayOrder,
-      orderId,
+      referenceId,
     ]
   );
 };

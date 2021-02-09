@@ -27,8 +27,6 @@ export const Checkout: React.FC = () => {
   });
 
   async function onPay() {
-    // TODO: MAKE WORKING AND ALL
-    // @ts-ignore
     await createAndPayOrder((data as any).data);
     history.push("/order");
   }
@@ -88,7 +86,7 @@ export const Checkout: React.FC = () => {
         justifyContent="space-between"
       >
         <Stat>
-          <StatLabel>Collected Fees</StatLabel>
+          <StatLabel>Totaal Bedrag</StatLabel>
           <StatNumber>€{totalPrice}</StatNumber>
         </Stat>
         <Button

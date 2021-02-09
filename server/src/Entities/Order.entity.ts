@@ -16,7 +16,7 @@ export class Order {
   id: number;
 
   @Column({ nullable: false })
-  serialNumber: number;
+  referenceNumber: number;
 
   @Column({
     type: "enum",

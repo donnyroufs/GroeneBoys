@@ -5,7 +5,7 @@ import { useQueryClient } from "react-query";
 import { useCart } from "../../Context/useCart";
 
 export const Order: React.FC = () => {
-  const { resetCart, orderId } = useCart();
+  const { resetCart, referenceId } = useCart();
   const history = useHistory();
   const queryClient = useQueryClient();
 
@@ -48,12 +48,12 @@ export const Order: React.FC = () => {
             backgroundColor="green.500"
           />
 
-          <Heading mt="3.5rem">Bedankt voor je bestelling!</Heading>
+          <Heading mt="3.5rem">Bedankt voor uw bestelling!</Heading>
           <Text fontSize="2xl" mt={4}>
-            Jouw Ordernummer:
+            Uw Ordernummer:
           </Text>
           <Text fontWeight="bold" fontSize="lg">
-            {orderId}
+            {referenceId}
           </Text>
           <Button
             backgroundColor="green.500"

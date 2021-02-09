@@ -1,4 +1,4 @@
-import { OrderStatus } from "./../Types";
+import { ICreateOrderServiceDto, OrderStatus } from "./../Types";
 import { OrderToProduct } from "./../Entities/OrderToProduct.entity";
 import { IHttpResponseDto } from "./HttpResponse.dto";
 import { Order } from "../Entities/Order.entity";
@@ -14,12 +14,11 @@ export interface IRequestProductDto {
 
 export interface ICreateOrderRequestDto {
   userId: number;
-  serialNumber: number;
   products: IRequestProductDto[];
 }
 
 export interface ICreateOrderResponseDto extends IHttpResponseDto {
-  data: OrderToProduct[];
+  data: ICreateOrderServiceDto;
 }
 
 export interface IUpdateOrderRequestDto {

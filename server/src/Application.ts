@@ -6,7 +6,6 @@ import { container } from "./Container";
 import { connectDatabase } from "./Data/CreateConnection";
 import cors from "cors";
 import morgan from "morgan";
-import path from "path";
 
 class Application {
   static PORT = process.env.PORT || 5000;

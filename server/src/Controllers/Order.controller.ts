@@ -45,18 +45,17 @@ export class OrderController extends BaseHttpController {
     };
   }
 
-  @httpGet("/pending")
-  async getPendingOrders() {
-    const orders = await this.orderService.getPendingOrders();
-    return orders;
-  }
-
   @httpPut("/")
-  async payForOrder(@requestBody() data: IUpdateOrderRequestDto) {
-    // TODO: Validation
+  async update(@requestBody() data: IUpdateOrderRequestDto) {
     await this.orderService.updateOrder(data.id, data.status);
     return <IHttpResponseDto>{
       statusCode: 204,
     };
+  }
+
+  @httpGet("/pending")
+  async getPendingOrders() {
+    const orders = await this.orderService.getPendingOrders();
+    return orders;
   }
 }
