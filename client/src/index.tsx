@@ -8,13 +8,16 @@ import { queryClient } from "./QueryClient";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "./Theme";
+import { CartProvider } from "./Context/useCart";
 
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
       <ChakraProvider theme={theme}>
-        <App />
+        <CartProvider>
+          <App />
+        </CartProvider>
       </ChakraProvider>
     </QueryClientProvider>
   </React.StrictMode>,

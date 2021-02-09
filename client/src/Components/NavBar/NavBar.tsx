@@ -1,13 +1,15 @@
 import { useHistory } from "react-router-dom";
-import { Flex, Button, Text } from "@chakra-ui/react";
+import { Flex, Button, Text, Box } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { FaShoppingCart } from "react-icons/fa";
 import { useQuery, useQueryClient } from "react-query";
 import { Spinner } from "../Spinner/Spinner";
+import { useCart } from "../../Context/useCart";
 
 // TODO: Should be a protected component
 export const NavBar: React.FC = () => {
   const history = useHistory();
+  const { cart, resetCart } = useCart();
   const queryClient = useQueryClient();
   const { data } = useQuery<{ data: { firstName: string } }>("verify", {
     enabled: false,
@@ -19,8 +21,11 @@ export const NavBar: React.FC = () => {
 
   function onStop() {
     queryClient.removeQueries("verify");
+    resetCart();
     history.push("/");
   }
+
+  const totalProductsInCart = cart.length;
 
   return (
     <Flex flex={1} justifyContent="space-between" my="6rem">
@@ -48,6 +53,7 @@ export const NavBar: React.FC = () => {
           Hallo, {data!.data.firstName}
         </Text>
         <Button
+          position="relative"
           leftIcon={<FaShoppingCart />}
           backgroundColor="green.500"
           color="#fff"
@@ -56,7 +62,23 @@ export const NavBar: React.FC = () => {
             background: "green.400",
             color: "white",
           }}
-        />
+        >
+          <Box
+            borderRadius="50%"
+            color="#fff"
+            fontSize=".9rem"
+            paddingTop=".21rem"
+            paddingLeft=".07rem"
+            position="absolute"
+            h="24px"
+            w="24px"
+            top="-12px"
+            right="-12px"
+            background="green.700"
+          >
+            {totalProductsInCart}
+          </Box>
+        </Button>
       </Flex>
     </Flex>
   );

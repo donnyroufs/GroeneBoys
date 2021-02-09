@@ -1,10 +1,20 @@
 import React from "react";
 import { Image, Box, Text } from "@chakra-ui/react";
 import { IProduct } from "../../../../Types";
+import { useCart } from "../../../../Context/useCart";
 
 const IMAGE_URL = "http://localhost:5000/static/";
 
-export const Product: React.FC<IProduct> = ({ id, image, name, price }) => {
+export const Product: React.FC<IProduct> = ({
+  id,
+  image,
+  name,
+  price,
+  createdAt,
+  updatedAt,
+}) => {
+  const { addToCart } = useCart();
+
   return (
     <Box
       boxShadow="sm"
@@ -16,6 +26,9 @@ export const Product: React.FC<IProduct> = ({ id, image, name, price }) => {
       _hover={{
         opacity: 0.8,
       }}
+      onClick={() =>
+        addToCart({ id, image, name, price, createdAt, updatedAt })
+      }
     >
       <Image
         src={IMAGE_URL + image}
