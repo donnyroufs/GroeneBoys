@@ -28,8 +28,6 @@ export class OrderService implements IOrderService {
     ...orderData
   }: ICreateOrderRequestDto) {
     return getManager().transaction(async (entityManager) => {
-      console.log(orderData);
-      console.log(orderData.serialNumber);
       const newOrder = this.orderRepo.create({
         ...orderData,
         user: {
