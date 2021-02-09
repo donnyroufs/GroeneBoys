@@ -12,6 +12,7 @@ export type ProductWithQuantity = IProduct & { quantity: number };
 
 export interface ICartProps {
   cart: IProduct[];
+  orderId: number | null;
   cartWithQuantities: ProductWithQuantity[];
   addToCart: (product: IProduct) => void;
   removeFromCart: (id: number) => void;
@@ -22,6 +23,7 @@ export interface ICartProps {
 // @ts-ignore
 const initialState: ICartProps = {
   cart: [],
+  orderId: null,
 };
 
 const CartContext = createContext<ICartProps>(initialState);
@@ -38,6 +40,7 @@ export const useCart = () => {
 
 const useCartProvider = () => {
   const [cart, setCart] = useState<IProduct[]>([]);
+  const [orderId, setOrderId] = useState<Number | null>(0);
 
   const cartWithQuantities = Object.entries(
     cart.reduce((acc, curr) => {
@@ -71,17 +74,21 @@ const useCartProvider = () => {
 
   const resetCart = useCallback(() => {
     setCart([]);
+    setOrderId(null);
   }, []);
 
   const createAndPayOrder = useCallback(
     async (data: any) => {
-      return OrderApi.createAndPayOrder({
+      // @ts-ignore
+      const { data: orderData } = await OrderApi.createAndPayOrder({
         // @ts-ignore
         userId: data.id,
         // @ts-ignore
         serialNumber: data.serialNumber,
         products: cartWithQuantities,
       });
+      // @TODO: Risky shizzle
+      setOrderId(orderData[0].orderId);
     },
     [cartWithQuantities]
   );
@@ -94,6 +101,7 @@ const useCartProvider = () => {
       resetCart,
       cartWithQuantities,
       createAndPayOrder,
+      orderId,
     }),
     [
       cart,
@@ -102,6 +110,7 @@ const useCartProvider = () => {
       resetCart,
       cartWithQuantities,
       createAndPayOrder,
+      orderId,
     ]
   );
 };

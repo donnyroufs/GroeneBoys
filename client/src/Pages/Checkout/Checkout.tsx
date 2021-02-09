@@ -28,6 +28,7 @@ export const Checkout: React.FC = () => {
 
   async function onPay() {
     // TODO: MAKE WORKING AND ALL
+    // @ts-ignore
     await createAndPayOrder((data as any).data);
     history.push("/order");
   }
@@ -71,7 +72,7 @@ export const Checkout: React.FC = () => {
           </Thead>
           <Tbody>
             {cartWithQuantities.map((product: ProductWithQuantity) => (
-              <Row {...product} />
+              <Row {...product} key={product.id} />
             ))}
           </Tbody>
         </Table>

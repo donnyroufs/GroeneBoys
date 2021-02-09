@@ -5,7 +5,7 @@ import { useQueryClient } from "react-query";
 import { useCart } from "../../Context/useCart";
 
 export const Order: React.FC = () => {
-  const { resetCart } = useCart();
+  const { resetCart, orderId } = useCart();
   const history = useHistory();
   const queryClient = useQueryClient();
 
@@ -53,7 +53,7 @@ export const Order: React.FC = () => {
             Jouw Ordernummer:
           </Text>
           <Text fontWeight="bold" fontSize="lg">
-            223
+            {orderId}
           </Text>
           <Button
             backgroundColor="green.500"
