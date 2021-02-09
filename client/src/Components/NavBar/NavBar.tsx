@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { Flex, Button, Text, Box } from "@chakra-ui/react";
+import { Flex, Button, Text, Box, ButtonGroup } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { FaShoppingCart } from "react-icons/fa";
 import { useQuery, useQueryClient } from "react-query";
@@ -25,22 +25,46 @@ export const NavBar: React.FC = () => {
     history.push("/");
   }
 
+  function onBack() {
+    history.goBack();
+  }
+
+  function onClickShoppingCart() {
+    history.push("/checkout");
+  }
+
   const totalProductsInCart = cart.length;
+  const isCheckoutPage = history.location.pathname.includes("checkout");
 
   return (
-    <Flex flex={1} justifyContent="space-between" my="6rem">
-      <Button
-        leftIcon={<ArrowBackIcon />}
-        backgroundColor="red.500"
-        color="#fff"
-        _hover={{
-          background: "red.400",
-          color: "white",
-        }}
-        onClick={onStop}
-      >
-        Stoppen
-      </Button>
+    <Flex as="header" flex={1} justifyContent="space-between" my="6rem">
+      <ButtonGroup spacing={4}>
+        <Button
+          leftIcon={<ArrowBackIcon />}
+          backgroundColor="red.500"
+          color="#fff"
+          _hover={{
+            background: "red.400",
+            color: "white",
+          }}
+          onClick={onStop}
+        >
+          Stoppen
+        </Button>
+        {isCheckoutPage && (
+          <Button
+            backgroundColor="green.500"
+            color="#fff"
+            _hover={{
+              background: "green.400",
+              color: "white",
+            }}
+            onClick={onBack}
+          >
+            Ga Terug
+          </Button>
+        )}
+      </ButtonGroup>
 
       <Flex justifyContent="center" align-items="center">
         <Text
@@ -62,6 +86,7 @@ export const NavBar: React.FC = () => {
             background: "green.400",
             color: "white",
           }}
+          onClick={onClickShoppingCart}
         >
           <Box
             borderRadius="50%"
