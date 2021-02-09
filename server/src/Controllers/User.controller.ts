@@ -10,7 +10,6 @@ import {
   controller,
   httpGet,
   queryParam,
-  requestBody,
 } from "inversify-express-utils";
 
 @controller("/api/user")
