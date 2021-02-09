@@ -28,7 +28,7 @@ export function useHome() {
     }
 
     if (data.data) {
-      history.push("/order");
+      history.push("/products");
     }
   }, [data, history, queryClient]);
 
