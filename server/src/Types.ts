@@ -16,7 +16,8 @@ export enum types {
 
 export enum OrderStatus {
   pending,
-  done,
+  paid,
+  delivered,
 }
 
 export interface IUserService {
@@ -28,7 +29,7 @@ export interface IOrderService {
   getOrders: () => Promise<Order[]>;
   createOrder: (orderData: ICreateOrderRequestDto) => Promise<OrderToProduct[]>;
   getPendingOrders: () => Promise<unknown>;
-  updateOrder: () => Promise<unknown>;
+  updateOrder: (id: number, status: OrderStatus) => Promise<unknown>;
 }
 
 export interface IProductService {

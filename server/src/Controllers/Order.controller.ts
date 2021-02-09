@@ -1,4 +1,7 @@
-import { ICreateOrderResponseDto } from "./../Dto/Order.dto";
+import {
+  ICreateOrderResponseDto,
+  IUpdateOrderRequestDto,
+} from "./../Dto/Order.dto";
 import { inject } from "inversify";
 import { types, IOrderService } from "../Types";
 import {
@@ -10,8 +13,10 @@ import {
   controller,
   httpGet,
   httpPost,
+  httpPut,
   requestBody,
 } from "inversify-express-utils";
+import { IHttpResponseDto } from "../Dto";
 
 @controller("/api/order")
 export class OrderController extends BaseHttpController {
@@ -44,5 +49,14 @@ export class OrderController extends BaseHttpController {
   async getPendingOrders() {
     const orders = await this.orderService.getPendingOrders();
     return orders;
+  }
+
+  @httpPut("/")
+  async payForOrder(@requestBody() data: IUpdateOrderRequestDto) {
+    // TODO: Validation
+    await this.orderService.updateOrder(data.id, data.status);
+    return <IHttpResponseDto>{
+      statusCode: 204,
+    };
   }
 }

@@ -1,3 +1,4 @@
+import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import { GenericLayout } from "../../Layout/GenericLayout";
 import {
@@ -19,12 +20,15 @@ import React from "react";
 import { ProductWithQuantity, useCart } from "../../Context/useCart";
 
 export const Checkout: React.FC = () => {
-  const { cart, cartWithQuantities, payOrder } = useCart();
+  const { cart, cartWithQuantities, createAndPayOrder } = useCart();
   const history = useHistory();
+  const { data } = useQuery("verify", {
+    enabled: false,
+  });
 
-  function onPay() {
+  async function onPay() {
     // TODO: MAKE WORKING AND ALL
-    payOrder();
+    await createAndPayOrder((data as any).data);
     history.push("/order");
   }
 

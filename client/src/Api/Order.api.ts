@@ -6,8 +6,9 @@ export class OrderApi extends BaseApi {
     return data;
   }
 
-  static async verifyUser(serialKey: number) {
-    const { data } = await OrderApi.axios.get(`/api/user/verify?serialKey=${serialKey}`);
+  // TODO: Should  be a mutation?
+  static async createAndPayOrder(payload: unknown) {
+    const { data } = await OrderApi.axios.post(`/api/order`, payload);
     return data;
   }
 }

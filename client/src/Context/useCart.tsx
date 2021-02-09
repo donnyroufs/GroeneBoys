@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { IProduct } from "../Types";
+import { OrderApi } from "../Api";
 
 export type ProductWithQuantity = IProduct & { quantity: number };
 
@@ -15,7 +16,7 @@ export interface ICartProps {
   addToCart: (product: IProduct) => void;
   removeFromCart: (id: number) => void;
   resetCart: () => void;
-  payOrder: () => void;
+  createAndPayOrder: (data: any) => Promise<unknown>;
 }
 
 // @ts-ignore
@@ -38,6 +39,21 @@ export const useCart = () => {
 const useCartProvider = () => {
   const [cart, setCart] = useState<IProduct[]>([]);
 
+  const cartWithQuantities = Object.entries(
+    cart.reduce((acc, curr) => {
+      // @ts-ignore
+      acc[curr.id] = acc[curr.id] ? acc[curr.id] + 1 : 1;
+      return acc;
+    }, {})
+  ).map(([k, v]) => {
+    const product = cart.find((p) => p.id === Number.parseInt(k));
+
+    return {
+      ...product,
+      quantity: v,
+    } as ProductWithQuantity;
+  });
+
   const addToCart = useCallback(
     (product: IProduct) => {
       setCart((curr) => [...curr, product]);
@@ -57,22 +73,18 @@ const useCartProvider = () => {
     setCart([]);
   }, []);
 
-  const payOrder = useCallback(() => {}, []);
-
-  const cartWithQuantities = Object.entries(
-    cart.reduce((acc, curr) => {
-      // @ts-ignore
-      acc[curr.id] = acc[curr.id] ? acc[curr.id] + 1 : 1;
-      return acc;
-    }, {})
-  ).map(([k, v]) => {
-    const product = cart.find((p) => p.id === Number.parseInt(k));
-
-    return {
-      ...product,
-      quantity: v,
-    } as ProductWithQuantity;
-  });
+  const createAndPayOrder = useCallback(
+    async (data: any) => {
+      return OrderApi.createAndPayOrder({
+        // @ts-ignore
+        userId: data.id,
+        // @ts-ignore
+        serialNumber: data.serialNumber,
+        products: cartWithQuantities,
+      });
+    },
+    [cartWithQuantities]
+  );
 
   return useMemo(
     () => ({
@@ -81,8 +93,15 @@ const useCartProvider = () => {
       removeFromCart,
       resetCart,
       cartWithQuantities,
-      payOrder,
+      createAndPayOrder,
     }),
-    [cart, addToCart, removeFromCart, resetCart, cartWithQuantities, payOrder]
+    [
+      cart,
+      addToCart,
+      removeFromCart,
+      resetCart,
+      cartWithQuantities,
+      createAndPayOrder,
+    ]
   );
 };

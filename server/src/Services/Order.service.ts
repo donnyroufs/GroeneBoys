@@ -28,11 +28,14 @@ export class OrderService implements IOrderService {
     ...orderData
   }: ICreateOrderRequestDto) {
     return getManager().transaction(async (entityManager) => {
+      console.log(orderData);
+      console.log(orderData.serialNumber);
       const newOrder = this.orderRepo.create({
         ...orderData,
         user: {
           id: userId,
         },
+        status: OrderStatus.paid,
       });
 
       const createdOrder = await entityManager.save(newOrder);
@@ -40,7 +43,7 @@ export class OrderService implements IOrderService {
       const orderedProducts = products.map((product) => {
         return this.orderToProductRepo.create({
           orderId: createdOrder.id,
-          productId: product.productId,
+          productId: product.id,
           quantity: product.quantity,
         });
       });
@@ -55,10 +58,12 @@ export class OrderService implements IOrderService {
       .innerJoinAndSelect("o.order", "order")
       .innerJoinAndSelect("o.product", "product")
       .where("order.status = :orderStatus", {
-        orderStatus: OrderStatus.pending,
+        orderStatus: OrderStatus.paid,
       })
       .getMany();
   }
 
-  async updateOrder() {}
+  async updateOrder(id: number, status: OrderStatus = OrderStatus.paid) {
+    return this.orderRepo.update(id, { status });
+  }
 }
