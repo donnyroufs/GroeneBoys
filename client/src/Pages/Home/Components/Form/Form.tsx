@@ -26,6 +26,7 @@ export const Form: React.FC<IFormProps> = ({
       <FormHelperText>Vul uw lidnummer in</FormHelperText>
       <Button
         disabled={serialKey.length < 6}
+        onClick={onSubmit}
         backgroundColor="green.500"
         color="#fff"
         textTransform="uppercase"
@@ -35,7 +36,6 @@ export const Form: React.FC<IFormProps> = ({
           background: "green.400",
           color: "white",
         }}
-        onClick={onSubmit}
       >
         Start
       </Button>
