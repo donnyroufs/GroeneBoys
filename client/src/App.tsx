@@ -1,10 +1,14 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
+import { GenericLayout } from "./Layout/GenericLayout";
+import { Routes } from "./Routes";
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <Box>
-      <Heading>Init chakra and react-query (●'◡'●)</Heading>
-    </Box>
+    <Container minW="80%" maxW="80%">
+      <GenericLayout>
+        <Routes />
+      </GenericLayout>
+    </Container>
   );
 };
 

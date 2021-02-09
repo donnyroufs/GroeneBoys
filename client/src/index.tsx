@@ -7,12 +7,13 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { queryClient } from "./QueryClient";
 
 import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "./Theme";
 
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </QueryClientProvider>
