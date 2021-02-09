@@ -26,7 +26,8 @@ export const NavBar: React.FC = () => {
   }
 
   function onBack() {
-    history.goBack();
+    history.push("/products");
+    // history.goBack();
   }
 
   function onClickShoppingCart() {

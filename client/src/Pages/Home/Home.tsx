@@ -19,6 +19,7 @@ export const Home: React.FC = () => {
         display="flex"
       >
         <HStack margin="auto">
+          {/* @ts-ignore */}
           <Form {...formProps} />
         </HStack>
       </Box>

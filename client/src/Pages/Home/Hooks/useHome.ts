@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
 import { UserApi } from "../../../Api/";
@@ -20,6 +20,7 @@ export function useHome() {
   }
 
   useEffect(() => {
+    // @ts-ignore
     if (!data) return;
 
     if (data.error || !data.data) {
