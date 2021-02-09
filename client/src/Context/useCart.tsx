@@ -7,8 +7,11 @@ import React, {
 } from "react";
 import { IProduct } from "../Types";
 
+export type ProductWithQuantity = IProduct & { quantity: number };
+
 export interface ICartProps {
   cart: IProduct[];
+  cartWithQuantities: ProductWithQuantity[];
   addToCart: (product: IProduct) => void;
   removeFromCart: (id: number) => void;
   resetCart: () => void;
@@ -53,13 +56,29 @@ const useCartProvider = () => {
     setCart([]);
   }, []);
 
+  const cartWithQuantities = Object.entries(
+    cart.reduce((acc, curr) => {
+      // @ts-ignore
+      acc[curr.id] = acc[curr.id] ? acc[curr.id] + 1 : 1;
+      return acc;
+    }, {})
+  ).map(([k, v]) => {
+    const product = cart.find((p) => p.id === Number.parseInt(k));
+
+    return {
+      ...product,
+      quantity: v,
+    } as IProduct & { quantity: number };
+  });
+
   return useMemo(
     () => ({
       cart,
       addToCart,
       removeFromCart,
       resetCart,
+      cartWithQuantities,
     }),
-    [cart, addToCart, removeFromCart, resetCart]
+    [cart, addToCart, removeFromCart, resetCart, cartWithQuantities]
   );
 };

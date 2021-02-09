@@ -8,29 +8,24 @@ import {
   Box,
   TableCaption,
   Flex,
+  Stat,
+  StatLabel,
+  StatNumber,
+  Button,
 } from "@chakra-ui/react";
 import { Row } from "./Components";
 import React from "react";
-import { useCart } from "../../Context/useCart";
-import { IProduct } from "../../Types";
+import { ProductWithQuantity, useCart } from "../../Context/useCart";
 
 export const Checkout: React.FC = () => {
-  const { cart } = useCart();
+  const { cart, cartWithQuantities } = useCart();
 
-  const cartWithQuantities = Object.entries(
-    cart.reduce((acc, curr) => {
-      // @ts-ignore
-      acc[curr.id] = acc[curr.id] ? acc[curr.id] + 1 : 1;
-      return acc;
-    }, {})
-  ).map(([k, v]) => {
-    const product = cart.find((p) => p.id === Number.parseInt(k));
-
-    return {
-      ...product,
-      quantity: v,
-    } as IProduct & { quantity: number };
-  });
+  const productsInCart = cart.length;
+  const totalPrice = cartWithQuantities
+    .reduce((acc, curr) => {
+      return acc + curr.quantity * curr.price;
+    }, 0)
+    .toFixed(2);
 
   return (
     <GenericLayout>
@@ -43,7 +38,11 @@ export const Checkout: React.FC = () => {
         display="flex"
       >
         <Table variant="striped" backgroundColor="#fff">
-          <TableCaption pb={6}>Uw huidige bestellingen</TableCaption>
+          <TableCaption pb={6}>
+            {productsInCart > 0
+              ? "Uw huidige bestellingen"
+              : "U heeft nog niks gekozen"}
+          </TableCaption>
           <Thead backgroundColor="green.500">
             <Tr height="3.5rem">
               <Th color="#fff">Bestel Overzicht</Th>
@@ -59,15 +58,38 @@ export const Checkout: React.FC = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {cartWithQuantities.map(
-              (product: IProduct & { quantity: number }) => (
-                <Row {...product} />
-              )
-            )}
+            {cartWithQuantities.map((product: ProductWithQuantity) => (
+              <Row {...product} />
+            ))}
           </Tbody>
         </Table>
       </Box>
-      <Flex as="footer" background="#fff" p={4} height="130px" mt={8}></Flex>
+      <Flex
+        as="footer"
+        background="#fff"
+        py={4}
+        px={12}
+        height="130px"
+        mt={8}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Stat>
+          <StatLabel>Collected Fees</StatLabel>
+          <StatNumber>€{totalPrice}</StatNumber>
+        </Stat>
+        <Button
+          backgroundColor="green.500"
+          color="#fff"
+          p="2rem 3.5rem"
+          _hover={{
+            background: "green.400",
+            color: "white",
+          }}
+        >
+          Betalen
+        </Button>
+      </Flex>
     </GenericLayout>
   );
 };

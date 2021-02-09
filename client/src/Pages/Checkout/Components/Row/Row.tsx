@@ -1,10 +1,9 @@
 import { Tr, Td } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { AiFillDelete } from "react-icons/ai";
-import { useCart } from "../../../../Context/useCart";
-import { IProduct } from "../../../../Types";
+import { ProductWithQuantity, useCart } from "../../../../Context/useCart";
 
-export const Row: React.FC<IProduct & { quantity: number }> = ({
+export const Row: React.FC<ProductWithQuantity> = ({
   id,
   name,
   quantity,
