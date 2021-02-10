@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Box, SimpleGrid, Heading, Text } from "@chakra-ui/react";
 import { OrderApi } from "../../Api/Order.api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { Spinner } from "../../Components";
 import { Card } from "./Components";
 
@@ -12,7 +12,7 @@ export const Overview: React.FC = () => {
     "pending",
     async () => OrderApi.getAllPendingOrders(),
     {
-      refetchInterval: 15000,
+      refetchInterval: 7500,
     }
   );
 
