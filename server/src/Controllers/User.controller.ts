@@ -2,7 +2,7 @@ import {
   IGetUsersReponseDto,
   IUserVerifyRequestDto,
   IUserVerifyResponseDto,
-} from "../Dto/User.dto";
+} from "common/Dto/User.dto";
 import { types, IUserService } from "../Types";
 import { inject } from "inversify";
 import {

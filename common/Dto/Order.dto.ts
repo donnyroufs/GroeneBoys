@@ -1,7 +1,6 @@
-import { ICreateOrderServiceDto, OrderStatus } from "./../Types";
-import { OrderToProduct } from "./../Entities/OrderToProduct.entity";
+import { ICreateOrderServiceDto, OrderStatus } from "server/src/Types";
 import { IHttpResponseDto } from "./HttpResponse.dto";
-import { Order } from "../Entities/Order.entity";
+import { Order } from "server/src/Entities/Order.entity";
 
 export interface IGetOrdersResponseDto extends IHttpResponseDto {
   data: Order[];

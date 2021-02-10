@@ -1,13 +1,13 @@
 import {
   ICreateOrderResponseDto,
   IUpdateOrderRequestDto,
-} from "./../Dto/Order.dto";
+} from "common/Dto/Order.dto";
 import { inject } from "inversify";
 import { types, IOrderService } from "../Types";
 import {
   ICreateOrderRequestDto,
   IGetOrdersResponseDto,
-} from "../Dto/Order.dto";
+} from "common/Dto/Order.dto";
 import {
   BaseHttpController,
   controller,
@@ -16,7 +16,7 @@ import {
   httpPut,
   requestBody,
 } from "inversify-express-utils";
-import { IHttpResponseDto } from "../Dto";
+import { IHttpResponseDto } from "common/Dto";
 
 @controller("/api/order")
 export class OrderController extends BaseHttpController {

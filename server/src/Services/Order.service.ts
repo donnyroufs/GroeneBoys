@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { OrderToProduct } from "./../Entities/OrderToProduct.entity";
-import { ICreateOrderRequestDto } from "./../Dto/Order.dto";
+import { ICreateOrderRequestDto } from "common/Dto/Order.dto";
 import { Order } from "./../Entities/Order.entity";
 import { getRepository, getManager } from "typeorm";
 import { mergePendingOrders } from "../Utils/mergePendingOrders";

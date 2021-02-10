@@ -1,4 +1,4 @@
-import { User } from "../Entities/User.entity";
+import { User } from "server/src/Entities/User.entity";
 import { IHttpResponseDto } from "./HttpResponse.dto";
 
 export interface IGetUsersReponseDto extends IHttpResponseDto {

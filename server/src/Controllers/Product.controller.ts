@@ -1,11 +1,10 @@
-import { IGetProductResponseDto } from "./../Dto/Product.dto";
+import { IGetProductResponseDto } from "common/Dto/Product.dto";
 import { types, IProductService } from "../Types";
 import { inject } from "inversify";
 import {
   BaseHttpController,
   controller,
   httpGet,
-  queryParam,
 } from "inversify-express-utils";
 
 @controller("/api/product")
