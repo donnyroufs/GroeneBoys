@@ -8,8 +8,12 @@ import { Card } from "./Components";
 
 export const Overview: React.FC = () => {
   const history = useHistory();
-  const { data, isLoading } = useQuery("pending", async () =>
-    OrderApi.getAllPendingOrders()
+  const { data, isLoading } = useQuery(
+    "pending",
+    async () => OrderApi.getAllPendingOrders(),
+    {
+      refetchInterval: 15000,
+    }
   );
 
   const onClickNavigate = (orderId: number) => {
