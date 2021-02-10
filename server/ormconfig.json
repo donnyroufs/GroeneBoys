@@ -11,5 +11,8 @@
   "migrations": ["src/Data/Migrations/**/*.ts"],
   "subscribers": ["src/Data/Subscribers/**/*.ts"],
   "factories": ["src/Data/Factories/**/*.ts"],
-  "seeds": ["src/Data/Seeds/**/*.ts"]
+  "seeds": ["src/Data/Seeds/**/*.ts"],
+  "cli": {
+    "migrationsDir": "src/Data/Migrations"
+  }
 }
