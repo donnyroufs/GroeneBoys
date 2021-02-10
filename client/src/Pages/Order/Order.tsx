@@ -5,7 +5,7 @@ import { useQueryClient } from "react-query";
 import { useCart } from "../../Context/useCart";
 
 export const Order: React.FC = () => {
-  const { resetCart, referenceId } = useCart();
+  const { resetCart, referenceId, hasProducts } = useCart();
   const history = useHistory();
   const queryClient = useQueryClient();
 
@@ -22,6 +22,10 @@ export const Order: React.FC = () => {
 
     return () => clearInterval(timeId);
   }, [onNext]);
+
+  if (!hasProducts) {
+    history.push("/");
+  }
 
   return (
     <Flex justify="center" align="center" h="100vh" w="100%">

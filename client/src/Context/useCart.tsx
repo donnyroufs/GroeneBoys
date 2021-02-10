@@ -17,6 +17,7 @@ export interface ICartProps {
   removeFromCart: (id: number) => void;
   resetCart: () => void;
   createAndPayOrder: (data: any) => Promise<unknown>;
+  hasProducts: boolean;
 }
 
 // @ts-ignore
@@ -92,6 +93,8 @@ const useCartProvider = () => {
     [cartWithQuantities]
   );
 
+  const hasProducts = cart.length > 0;
+
   return useMemo(
     () => ({
       cart,
@@ -101,6 +104,7 @@ const useCartProvider = () => {
       cartWithQuantities,
       createAndPayOrder,
       referenceId,
+      hasProducts,
     }),
     [
       cart,
@@ -110,6 +114,7 @@ const useCartProvider = () => {
       cartWithQuantities,
       createAndPayOrder,
       referenceId,
+      hasProducts,
     ]
   );
 };
