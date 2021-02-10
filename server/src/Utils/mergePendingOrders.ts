@@ -10,7 +10,6 @@ export function mergePendingOrders(queryData: OrderToProduct[]) {
           ...stuff,
           products: [],
         };
-        return acc;
       }
 
       const currentItem = acc[curr.order.referenceNumber];
