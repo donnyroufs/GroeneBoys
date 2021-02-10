@@ -1,4 +1,4 @@
-import { OrderStatus } from "./../Types";
+import { OrderStatus } from "common/Types";
 import { User } from "./User.entity";
 import {
   Entity,

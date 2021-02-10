@@ -8,8 +8,8 @@ import {
   IOrderProductRepository,
   IOrderRepository,
   IOrderService,
-  OrderStatus,
 } from "../Types";
+import { OrderStatus } from "common/Types";
 
 @injectable()
 export class OrderService implements IOrderService {

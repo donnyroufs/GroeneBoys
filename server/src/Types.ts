@@ -1,9 +1,10 @@
 import { OrderToProduct } from "./Entities/OrderToProduct.entity";
-import { ICreateOrderRequestDto } from "./Dto/Order.dto";
+import { ICreateOrderRequestDto } from "common/Dto/Order.dto";
 import { Order } from "./Entities/Order.entity";
 import { User } from "./Entities/User.entity";
 import { Repository } from "typeorm";
 import { Product } from "./Entities/Product.entity";
+import { OrderStatus } from "common/Types";
 
 export enum types {
   IUserService = "IUserService",
@@ -12,12 +13,6 @@ export enum types {
   IOrderRepo = "IOrderRepo",
   IProductService = "IProductService",
   IProductRepo = "IProductRepo",
-}
-
-export enum OrderStatus {
-  pending,
-  paid,
-  delivered,
 }
 
 export interface IUserService {
