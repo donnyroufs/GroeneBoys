@@ -2,11 +2,14 @@ import { useLayoutEffect, useRef } from "react";
 import { PinInput, PinInputField } from "@chakra-ui/react";
 
 export interface IInputProps {
-  setSerialKey: React.Dispatch<React.SetStateAction<string>>;
-  serialKey: string;
+  setSerialNumber: React.Dispatch<React.SetStateAction<string>>;
+  serialNumber: string;
 }
 
-export const Input: React.FC<IInputProps> = ({ setSerialKey, serialKey }) => {
+export const Input: React.FC<IInputProps> = ({
+  setSerialNumber,
+  serialNumber,
+}) => {
   const ref = useRef();
 
   useLayoutEffect(() => {
@@ -17,9 +20,9 @@ export const Input: React.FC<IInputProps> = ({ setSerialKey, serialKey }) => {
 
   return (
     <PinInput
-      onChange={(data) => setSerialKey(data)}
+      onChange={(data) => setSerialNumber(data)}
       size="lg"
-      value={serialKey}
+      value={serialNumber}
     >
       {/* @ts-ignore */}
       <PinInputField ref={ref} />

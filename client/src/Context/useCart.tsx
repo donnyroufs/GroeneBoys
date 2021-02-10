@@ -5,11 +5,10 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { IProduct } from "../Types";
+import { IProduct } from "common/Entities";
 import { OrderApi } from "../Api";
 
 export type ProductWithQuantity = IProduct & { quantity: number };
-
 export interface ICartProps {
   cart: IProduct[];
   referenceId: number | null;

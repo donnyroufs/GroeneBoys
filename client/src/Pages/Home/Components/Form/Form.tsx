@@ -8,24 +8,24 @@ import { Input } from "../Input/Input";
 
 export interface IFormProps {
   onSubmit: () => void;
-  setSerialKey: React.Dispatch<React.SetStateAction<string>>;
-  serialKey: string;
+  setSerialNumber: React.Dispatch<React.SetStateAction<string>>;
+  serialNumber: string;
 }
 
 export const Form: React.FC<IFormProps> = ({
   onSubmit,
-  serialKey,
-  setSerialKey,
+  serialNumber,
+  setSerialNumber,
 }) => {
   return (
     <FormControl>
       <FormLabel fontSize="2rem" fontWeight="600" marginBottom="2rem">
         Eten Bestellen
       </FormLabel>
-      <Input serialKey={serialKey} setSerialKey={setSerialKey} />
+      <Input serialNumber={serialNumber} setSerialNumber={setSerialNumber} />
       <FormHelperText>Vul uw lidnummer in</FormHelperText>
       <Button
-        disabled={serialKey.length < 6}
+        disabled={serialNumber.length < 6}
         onClick={onSubmit}
         backgroundColor="green.500"
         color="#fff"

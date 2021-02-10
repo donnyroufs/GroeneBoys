@@ -3,6 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { NavBar } from "../Components";
 import { ReactNode } from "react";
 import { useQuery } from "react-query";
+import { IUserVerifyResponseDto } from "common/Dto/User.dto";
 
 export interface IGenericLayourProps {
   children: ReactNode;
@@ -10,7 +11,7 @@ export interface IGenericLayourProps {
 
 export const GenericLayout: React.FC<IGenericLayourProps> = ({ children }) => {
   const history = useHistory();
-  const { data } = useQuery<{ data: { firstName: string } }>("verify", {
+  const { data } = useQuery<IUserVerifyResponseDto>("verify", {
     enabled: false,
   });
 

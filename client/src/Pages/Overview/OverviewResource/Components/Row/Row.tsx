@@ -1,9 +1,11 @@
 import { Tr, Td } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
-import { AiFillDelete } from "react-icons/ai";
-import { ProductWithQuantity, useCart } from "../../../../../Context/useCart";
+import { IProduct } from "common/Entities";
 
-export const Row: React.FC<any> = ({ name, quantity, price }) => {
+export const Row: React.FC<IProduct & { quantity: number }> = ({
+  name,
+  quantity,
+  price,
+}) => {
   const totalPrice = price * quantity;
 
   return (

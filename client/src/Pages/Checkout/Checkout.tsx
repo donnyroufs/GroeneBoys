@@ -18,16 +18,17 @@ import {
 import { Row } from "./Components";
 import React from "react";
 import { ProductWithQuantity, useCart } from "../../Context/useCart";
+import { IUserVerifyResponseDto } from "common/Dto/User.dto";
 
 export const Checkout: React.FC = () => {
   const { cart, cartWithQuantities, createAndPayOrder } = useCart();
   const history = useHistory();
-  const { data } = useQuery("verify", {
+  const { data } = useQuery<IUserVerifyResponseDto>("verify", {
     enabled: false,
   });
 
   async function onPay() {
-    await createAndPayOrder((data as any).data);
+    await createAndPayOrder(data?.data);
     history.push("/order");
   }
 

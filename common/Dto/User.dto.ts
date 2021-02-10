@@ -1,8 +1,8 @@
-import { User } from "server/src/Entities/User.entity";
+import { IUser } from "../Entities";
 import { IHttpResponseDto } from "./HttpResponse.dto";
 
 export interface IGetUsersReponseDto extends IHttpResponseDto {
-  data: User[];
+  data: IUser[];
 }
 
 export interface IUserVerifyRequestDto {
@@ -10,5 +10,5 @@ export interface IUserVerifyRequestDto {
 }
 
 export interface IUserVerifyResponseDto extends IHttpResponseDto {
-  data: User | undefined;
+  data: IUser | undefined;
 }

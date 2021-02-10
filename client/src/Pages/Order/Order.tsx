@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Box, Flex, Heading, Button, Text } from "@chakra-ui/react";
 import { useQueryClient } from "react-query";
 import { useCart } from "../../Context/useCart";
@@ -9,20 +9,19 @@ export const Order: React.FC = () => {
   const history = useHistory();
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    let timeId = setInterval(() => {
-      onNext();
-    }, 10000);
-
-    return () => clearInterval(timeId);
-  }, [onNext]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function onNext() {
+  const onNext = useCallback(() => {
     queryClient.clear();
     resetCart();
     history.push("/");
-  }
+  }, [resetCart, history, queryClient]);
+
+  useEffect(() => {
+    let timeId = setInterval(() => {
+      onNext();
+    }, 15000);
+
+    return () => clearInterval(timeId);
+  }, [onNext]);
 
   return (
     <Flex justify="center" align="center" h="100vh" w="100%">

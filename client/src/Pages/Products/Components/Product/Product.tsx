@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Box, Text } from "@chakra-ui/react";
-import { IProduct } from "../../../../Types";
+import { IProduct } from "common/Entities";
+
 import { useCart } from "../../../../Context/useCart";
 
 const IMAGE_URL = "http://localhost:5000/static/";

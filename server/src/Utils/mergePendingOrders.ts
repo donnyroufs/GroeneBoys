@@ -1,6 +1,6 @@
-import { OrderToProduct } from "../Entities/OrderToProduct.entity";
+import { IOrderToProduct } from "common/Entities";
 
-export function mergePendingOrders(queryData: OrderToProduct[]) {
+export function mergePendingOrders(queryData: IOrderToProduct[]) {
   return Object.values(
     queryData.reduce((acc: { [key: string]: any }, curr) => {
       const { id, ...stuff } = curr;

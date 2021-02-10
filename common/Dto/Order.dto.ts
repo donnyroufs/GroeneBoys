@@ -1,10 +1,20 @@
-import { ICreateOrderServiceDto } from "server/src/Types";
 import { OrderStatus } from "../Types";
 import { IHttpResponseDto } from "./HttpResponse.dto";
-import { Order } from "server/src/Entities/Order.entity";
+import { IOrder, IOrderToProduct, IProduct } from "../Entities";
 
 export interface IGetOrdersResponseDto extends IHttpResponseDto {
-  data: Order[];
+  data: IOrder[];
+}
+
+export interface IGetPendingOrdersResponseDto extends IHttpResponseDto {
+  data: {
+    orderId: number;
+    productId: number;
+    quantity: number;
+    order: IOrder;
+    product: IProduct;
+    products: IProduct[];
+  };
 }
 
 export interface IRequestProductDto {
@@ -18,7 +28,10 @@ export interface ICreateOrderRequestDto {
 }
 
 export interface ICreateOrderResponseDto extends IHttpResponseDto {
-  data: ICreateOrderServiceDto;
+  data: {
+    order: IOrderToProduct[];
+    referenceNumber: number;
+  };
 }
 
 export interface IUpdateOrderRequestDto {

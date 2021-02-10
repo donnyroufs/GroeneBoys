@@ -1,10 +1,9 @@
 import { OrderToProduct } from "./Entities/OrderToProduct.entity";
 import { ICreateOrderRequestDto } from "common/Dto/Order.dto";
 import { Order } from "./Entities/Order.entity";
-import { User } from "./Entities/User.entity";
 import { Repository } from "typeorm";
-import { Product } from "./Entities/Product.entity";
 import { OrderStatus } from "common/Types";
+import { IOrder, IOrderToProduct, IProduct, IUser } from "common/Entities";
 
 export enum types {
   IUserService = "IUserService",
@@ -16,28 +15,30 @@ export enum types {
 }
 
 export interface IUserService {
-  getUsers: () => Promise<User[]>;
-  verify: (serialNumber: number) => Promise<User | undefined>;
+  getUsers: () => Promise<IUser[]>;
+  verify: (serialNumber: number) => Promise<IUser | undefined>;
 }
 
 export interface ICreateOrderServiceDto {
-  order: OrderToProduct[];
+  order: IOrderToProduct[];
   referenceNumber: number;
 }
 export interface IOrderService {
-  getOrders: () => Promise<Order[]>;
+  getOrders: () => Promise<IOrder[]>;
   createOrder: (
     orderData: ICreateOrderRequestDto
   ) => Promise<ICreateOrderServiceDto>;
+  // TODO: FIX
   getPendingOrders: () => Promise<unknown>;
+  // TODO: FIX
   updateOrder: (id: number, status: OrderStatus) => Promise<unknown>;
 }
 
 export interface IProductService {
-  getProducts: () => Promise<Product[]>;
+  getProducts: () => Promise<IProduct[]>;
 }
 
-export interface IUserRepository extends Repository<User> {}
-export interface IOrderRepository extends Repository<Order> {}
-export interface IProductRepository extends Repository<Product> {}
-export interface IOrderProductRepository extends Repository<OrderToProduct> {}
+export interface IUserRepository extends Repository<IUser> {}
+export interface IOrderRepository extends Repository<IOrder> {}
+export interface IProductRepository extends Repository<IProduct> {}
+export interface IOrderProductRepository extends Repository<IOrderToProduct> {}

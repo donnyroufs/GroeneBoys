@@ -5,13 +5,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useQuery, useQueryClient } from "react-query";
 import { Spinner } from "../Spinner/Spinner";
 import { useCart } from "../../Context/useCart";
+import { IUserVerifyResponseDto } from "common/Dto/User.dto";
 
-// TODO: Should be a protected component
 export const NavBar: React.FC = () => {
   const history = useHistory();
   const { cart, resetCart } = useCart();
   const queryClient = useQueryClient();
-  const { data } = useQuery<{ data: { firstName: string } }>("verify", {
+  const { data } = useQuery<IUserVerifyResponseDto>("verify", {
     enabled: false,
   });
 
@@ -75,7 +75,7 @@ export const NavBar: React.FC = () => {
           mb={1}
           mr={4}
         >
-          Hallo, {data!.data.firstName}
+          Hallo, {data.data?.firstName}
         </Text>
         <Button
           position="relative"

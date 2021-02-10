@@ -1,6 +1,5 @@
 import { useQuery, useQueryClient } from "react-query";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import { GenericLayout } from "../../../Layout/GenericLayout";
 import {
   Table,
   Thead,
@@ -18,12 +17,14 @@ import {
 import { Row } from "./Components";
 import { OrderApi } from "../../../Api";
 import { useMutation } from "react-query";
+import { IGetPendingOrdersResponseDto } from "common/Dto/Order.dto";
+import { IProduct } from "common/Entities";
 
 export const OverviewResource: React.FC = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
   const match = useRouteMatch();
-  const { data } = useQuery("pending", {
+  const { data } = useQuery<IGetPendingOrdersResponseDto>("pending", {
     enabled: false,
   });
   const mutation = useMutation(
@@ -90,10 +91,11 @@ export const OverviewResource: React.FC = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {/* @ts-ignore */}
-            {currentOrder.products.map((product) => (
-              <Row {...product} key={product.id} />
-            ))}
+            {currentOrder.products.map(
+              (product: IProduct & { quantity: number }) => (
+                <Row {...product} key={product.id} />
+              )
+            )}
           </Tbody>
         </Table>
       </Box>

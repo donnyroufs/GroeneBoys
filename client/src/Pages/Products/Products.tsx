@@ -3,7 +3,7 @@ import { ProductsApi } from "../../Api";
 import { GenericLayout } from "../../Layout/GenericLayout";
 import { SimpleGrid } from "@chakra-ui/react";
 import { Spinner } from "../../Components";
-import { IProduct } from "../../Types";
+import { IProduct } from "common/Entities";
 import { Product } from "./Components";
 
 export const Products: React.FC = () => {

@@ -56,6 +56,7 @@ export class OrderController extends BaseHttpController {
   @httpGet("/pending")
   async getPendingOrders() {
     const orders = await this.orderService.getPendingOrders();
+    console.log(orders);
     return orders;
   }
 }

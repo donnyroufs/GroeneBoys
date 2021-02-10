@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
 import { UserApi } from "../../../Api/";
+import { IUserVerifyResponseDto } from "common/Dto/User.dto";
 
 export function useHome() {
   const history = useHistory();
   const queryClient = useQueryClient();
-  const [serialKey, setSerialKey] = useState<string>("");
-  const { refetch, data } = useQuery(
+  const [serialNumber, setSerialNumber] = useState<string>("");
+  const { refetch, data } = useQuery<IUserVerifyResponseDto>(
     "verify",
-    async () => await UserApi.verifyUser(Number.parseInt(serialKey)),
+    async () =>
+      await UserApi.verifyUser({ serialNumber: Number(serialNumber) }),
     {
       enabled: false,
     }
@@ -20,12 +22,11 @@ export function useHome() {
   }
 
   useEffect(() => {
-    // @ts-ignore
     if (!data) return;
 
     if (data.error || !data.data) {
       queryClient.removeQueries("verify");
-      setSerialKey("");
+      setSerialNumber("");
     }
 
     if (data.data) {
@@ -34,8 +35,8 @@ export function useHome() {
   }, [data, history, queryClient]);
 
   return {
-    serialKey,
-    setSerialKey,
+    serialNumber,
+    setSerialNumber,
     onSubmit,
   };
 }
