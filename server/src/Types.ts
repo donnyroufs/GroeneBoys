@@ -7,11 +7,12 @@ import { IOrder, IOrderToProduct, IProduct, IUser } from "common/Entities";
 
 export enum types {
   IUserService = "IUserService",
-  IUserRepo = "IUserRepo",
+  IUserRepository = "IUserRepository",
   IOrderService = "IOrderService",
-  IOrderRepo = "IOrderRepo",
+  IOrderRepository = "IOrderRepository",
   IProductService = "IProductService",
-  IProductRepo = "IProductRepo",
+  IProductRepository = "IProductRepository",
+  IOrderToProductRepository = "IOrderToProductRepository",
 }
 
 export interface IUserService {

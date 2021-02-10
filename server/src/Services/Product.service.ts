@@ -1,11 +1,14 @@
-import { IProductService, IProductRepository } from "./../Types";
+import { IProductService, IProductRepository, types } from "./../Types";
 import { Product } from "./../Entities/Product.entity";
 import { getRepository } from "typeorm";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 
 @injectable()
 export class ProductService implements IProductService {
-  private productRepo: IProductRepository = getRepository(Product);
+  constructor(
+    @inject(types.IProductRepository)
+    private readonly productRepo: IProductRepository
+  ) {}
 
   async getProducts() {
     const products = await this.productRepo.find();

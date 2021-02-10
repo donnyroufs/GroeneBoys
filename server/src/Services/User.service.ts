@@ -1,11 +1,11 @@
-import { User } from "./../Entities/User.entity";
-import { getRepository } from "typeorm";
-import { IUserService, IUserRepository } from "../Types";
-import { injectable } from "inversify";
+import { IUserService, IUserRepository, types } from "../Types";
+import { inject, injectable } from "inversify";
 
 @injectable()
 export class UserService implements IUserService {
-  private userRepo: IUserRepository = getRepository(User);
+  constructor(
+    @inject(types.IUserRepository) private readonly userRepo: IUserRepository
+  ) {}
 
   async getUsers() {
     const users = await this.userRepo.find();

@@ -1,4 +1,4 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { OrderToProduct } from "./../Entities/OrderToProduct.entity";
 import { ICreateOrderRequestDto } from "common/Dto/Order.dto";
 import { Order } from "./../Entities/Order.entity";
@@ -8,15 +8,18 @@ import {
   IOrderProductRepository,
   IOrderRepository,
   IOrderService,
+  types,
 } from "../Types";
 import { OrderStatus } from "common/Types";
 
 @injectable()
 export class OrderService implements IOrderService {
-  private orderRepo: IOrderRepository = getRepository(Order);
-  private orderToProductRepo: IOrderProductRepository = getRepository(
-    OrderToProduct
-  );
+  constructor(
+    @inject(types.IOrderRepository)
+    private readonly orderRepo: IOrderRepository,
+    @inject(types.IOrderToProductRepository)
+    private readonly orderToProductRepo: IOrderProductRepository
+  ) {}
 
   async getOrders() {
     const orders = await this.orderRepo.find();
